@@ -1,4 +1,4 @@
-package com.lkb.Fibonacci;
+﻿package com.lkb.Fibonacci;
 
 import java.util.Arrays;
 
@@ -82,7 +82,7 @@ public class FibonacciSearch {
 		HelpUtils.printIntArray(src);//打印一下补全的数组
 		
 		while(low <= high){
-			middle = low + getFobonacci(fobInex)-1;
+			middle = low + getFobonacci(fobInex-1)-1;
 			if (key < src[middle]) { //如果当前查找记录小于当前分隔记录
 				high = middle - 1;
 				fobInex = fobInex - 1;
