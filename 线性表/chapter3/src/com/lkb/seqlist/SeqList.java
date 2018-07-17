@@ -36,6 +36,7 @@ public class SeqList {
 			throw new ArrayIndexOutOfBoundsException("seqlist size error. size : " + size);
 		}
 		
+		
 		if(index < 0 || index > size){
 			throw new ArrayIndexOutOfBoundsException("param index error. index : " + index);
 		}
