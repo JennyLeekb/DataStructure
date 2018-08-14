@@ -13,6 +13,7 @@ int listInsert(SeqList *seqList, int i, DataType x); //插入数据元素
 int listDelete(SeqList *seqList, int i, DataType *x); //删除元素
 int listGet(SeqList *seqList, int i, DataType *x); //取元素
 int listEdit(SeqList *seqList, int i, DataType x); //修改元素
+void listPrint(SeqList *seqList); //打印列表
 
 /*
  * 初始化顺序表
@@ -133,6 +134,19 @@ int listEdit(SeqList *seqList, int i, DataType x)
 
     seqList->list[i] = x;
     return 1;
+}
+
+/*
+ * 打印列表
+ */
+void listPrint(SeqList *seqList)
+{
+    int i;
+    for(i = 0; i < seqList->size; i++)
+    {
+        printf("%d -> ",seqList->list[i]);
+    }
+    printf("\n");
 }
 
 #endif // __SEQLIST_H__

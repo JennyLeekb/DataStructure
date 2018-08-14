@@ -9,7 +9,9 @@ int main(void)
 {
     printf("Hello world!\n");
 
-    SeqList *seqList;
+    SeqList list;
+
+    SeqList *seqList = &list;
     int i,x,size;
 
     listInit(seqList);
