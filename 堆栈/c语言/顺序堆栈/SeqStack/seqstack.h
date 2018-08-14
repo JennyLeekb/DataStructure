@@ -52,7 +52,7 @@ int stackGetSize(SeqStack *seqStack)
  */
 int stackPush(SeqStack *seqStack, DataType e)
 {
-    if(seqStack->top >= MaxSize)
+    if(seqStack->top > MaxSize)
     {
         printf("顺序堆栈已满，无法入栈！\n");
         return -1;
@@ -102,11 +102,12 @@ int stackTop(SeqStack *seqStack, DataType *x)
  */
 void stackPrint(SeqStack *seqStack)
 {
-    int e;
-    while(seqStack->top > 0)
+    int e,p;
+    p = seqStack->top;
+    while(p > 0)
     {
-        seqStack->top --;
-        e = seqStack->stack[seqStack->top];
+        p--;
+        e = seqStack->stack[p];
         printf("%d -> ",e);
     }
     printf("\n");
