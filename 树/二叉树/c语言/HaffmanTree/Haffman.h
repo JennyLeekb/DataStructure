@@ -2,41 +2,69 @@
 #define __HAFFMAN_H__
 #include "malloc.h"
 
+#define MaxN 20
+
 typedef char DataType;
 
 typedef struct Node
 {
+    DataType data;
     int weight;
     struct Node *leftChild;
     struct Node *rightChild;
+    struct Node *parent; //双亲结点
+    int code[1]; //哈夫曼编码
 }HaffNode;
 
-HaffNode *getHaffNode(int weight,HaffNode *leftChild, HaffNode *rightChild);
-HaffNode *getHaffTree(int weights[],int len);
+HaffNode *createLeaveNode(DataType data,int weight,HaffNode *leftChild, HaffNode *rightChild, HaffNode *parent);
+HaffNode *createParentNode(DataType data,int weight,HaffNode *leftChild, HaffNode *rightChild);
+HaffNode *getHaffTree(DataType datas[],int weights[],int len);
+void getHaffCode(DataType data,HaffNode *root,int code[],int *len);
+void getHaffNode(DataType data, HaffNode *root,HaffNode **node);
 HaffNode *getAndDelMin(HaffNode nodes[],int *len);
 void addNum(HaffNode nodes[], int *len, HaffNode node);
-void init(int weights[],HaffNode nodes[],int len);
+void init(DataType datas[],int weights[],HaffNode nodes[],int len);
 
-//生成结点
-HaffNode *getHaffNode(int weight,HaffNode *leftChild, HaffNode *rightChild)
+//生成叶子结点
+HaffNode *createLeaveNode(DataType data, int weight, HaffNode *leftChild, HaffNode *rightChild, HaffNode *parent)
 {
     HaffNode *node;
     node = (HaffNode *)malloc(sizeof(HaffNode));
+    node->data = data;
     node->weight = weight;
     node->leftChild = leftChild;
     node->rightChild = rightChild;
+    node->parent = parent;
+    node->code[0] = -1;
     return node;
 }
 
+//生成非叶子结点
+HaffNode *createParentNode(DataType data,int weight,HaffNode *leftChild, HaffNode *rightChild)
+{
+    HaffNode *parent;
+    parent = (HaffNode *)malloc(sizeof(HaffNode));
+    parent->data = data;
+    parent->weight = weight;
+    parent->leftChild = leftChild;
+    parent->rightChild = rightChild;
+    parent->parent = NULL;
+    parent->code[0] = -1;
+    leftChild->parent = parent;
+    leftChild->code[0] = 0;
+    rightChild->parent = parent;
+    rightChild->code[0] = 1;
+    return parent;
+}
 
 //根据权值生成哈夫曼树
-HaffNode *getHaffTree(int weights[],int len)
+HaffNode *getHaffTree(DataType datas[],int weights[],int len)
 {
     HaffNode *root,*left,*right;
     HaffNode nodes[len];
     int temp;
 
-    init(weights,nodes,len);
+    init(datas,weights,nodes,len);
 
     while(len > 1)
     {
@@ -44,7 +72,7 @@ HaffNode *getHaffTree(int weights[],int len)
         right = getAndDelMin(nodes,&len); //获取次小值
 
         temp = left->weight + right->weight;
-        root = getHaffNode(temp,left,right);
+        root = createParentNode('\0',temp,left,right);
 
         addNum(nodes,&len,*root);
     }
@@ -52,14 +80,56 @@ HaffNode *getHaffTree(int weights[],int len)
     return root;
 }
 
+//获取哈夫曼编码
+void getHaffCode(DataType data,HaffNode *root,int code[],int *len)
+{
+   HaffNode *p;
+   int i;
+   getHaffNode(data,root,&p);
+
+
+   i=0;
+   while(p != root)
+   {
+       code[i] = p->code[0];
+       p = p->parent;
+       i++;
+    printf("code is %d\n",p->code[0]);
+    if(p == NULL)
+   {
+       printf("data is wrong!\n");
+       return;
+   }
+   }
+
+   *len = i;
+}
+
+
+//根据字符获取对应的哈夫曼树的结点
+void getHaffNode(DataType data, HaffNode *root,HaffNode **node)
+{
+    if(root == NULL) return;
+    getHaffNode(data,root->leftChild,node);
+    if(root->data == data)
+    {
+        *node = root;
+        return;
+    }
+    getHaffNode(data,root->rightChild,node);
+
+}
+
+
+
 //初始化 将数组转变为结点
-void init(int weights[],HaffNode nodes[],int len)
+void init(DataType datas[],int weights[],HaffNode nodes[],int len)
 {
     int i;
     HaffNode *temp;
     for(i=0;i<len;i++)
     {
-        temp = getHaffNode(weights[i],NULL,NULL);
+        temp = createLeaveNode(datas[i],weights[i],NULL,NULL,NULL);
         nodes[i] = *temp;
     }
 }
