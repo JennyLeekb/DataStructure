@@ -10,12 +10,14 @@
 typedef char DataType;
 typedef int QueueDataType;
 typedef char verType;
+typedef char verT;
 
 
 #include "adjMGraph.h"
 #include "adjMGraphCreate.h"
 #include "traverse.h"
 #include "prim.h"
+#include "primMine.h"
 
 void Visit(DataType item)
 {
@@ -64,7 +66,7 @@ int main()
     {3,5,30},{5,3,30},{3,6,42},{6,3,42},{4,5,70},{5,4,70} };
 
     int n = 7, e = 20,i; //7个顶点，20条边
-    MinSpanTree closeVertex[7]; //定义保存最小生成树的数组
+    /*MinSpanTree closeVertex[7]; //定义保存最小生成树的数组
 
     createGraph(&g,a,n,edge,e); //创建图
     prim(&g,closeVertex);
@@ -72,7 +74,17 @@ int main()
     //输出最小生成树的顶点序列和权值序列
     printf("初始顶点 = %c\n", closeVertex[0].vertex);
     for(i=1;i<n;i++)
-        printf("顶点 = %c   边的权值 = %d\n", closeVertex[i].vertex,closeVertex[i].weight);
+        printf("顶点 = %c   边的权值 = %d\n", closeVertex[i].vertex,closeVertex[i].weight);*/
+
+    PrimTree tree[7]; //定义保存最小生成树的数组
+
+    createGraph(&g,a,n,edge,e); //创建图
+    primMine(&g,tree);
+
+    //输出最小生成树的顶点序列和权值序列
+    printf("初始顶点 = %c\n", tree[0].vertex);
+    for(i=1;i<n;i++)
+        printf("顶点 = %c   边的权值 = %d\n", tree[i].vertex,tree[i].weight);
 
 
     return 0;

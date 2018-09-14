@@ -9,6 +9,8 @@ typedef struct
 }MinSpanTree;
 
 
+void prim(AdjMGraph *graph,MinSpanTree closeVertex[]);
+
 //使用prim算法建立带权图的最小生成树closeVertex
 void prim(AdjMGraph *graph,MinSpanTree closeVertex[])
 {
