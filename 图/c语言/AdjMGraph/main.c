@@ -20,6 +20,7 @@ typedef char verT;
 #include "prim.h"
 #include "primMine.h"
 #include "dijkstra.h"
+#include "dijkstraMine.h"
 
 void Visit(DataType item)
 {
@@ -95,11 +96,25 @@ int main()
     {2,5,7},{4,3,4},{5,3,10},{5,4,18} };
 
     int i,n=6,e=9;
-    int distance[6],path[9];
+   // int distance[6],path[9];
+    int path[6];
+    int v0 = 0;
+    DataType vertex[6];
 
     createGraph(&g,a,n,edge,e);
 
-    dijkstra(&g,0,distance,path);
+    dijkstraMine(&g,v0,n,path,vertex);
+
+    printf("从顶点%c到其他各点的最短路径为：\n",g.vertices.list[v0]);
+    for(i=0;i<n;i++)
+        printf("到顶点%c的最短路径为%d\n",g.vertices.list[i],path[i]);
+
+    printf("从顶点到各点的路径：\n");
+    for(i=0;i<n;i++)
+        printf("%c -> ",vertex[i]);
+
+
+    /*dijkstra(&g,0,distance,path);
 
     printf("从顶点%c到其他各点的最短路径为：\n",g.vertices.list[0]);
     for(i=0;i<n;i++)
@@ -108,7 +123,7 @@ int main()
     printf("从顶点%c到其他各个顶点最短路径的前一顶点为：\n",g.vertices.list[0]);
     for(i=0;i<n;i++)
         if(path[i] != -1)
-            printf("到顶点%c前一顶点为%c\n",g.vertices.list[i],g.vertices.list[path[i]]);
+            printf("到顶点%c前一顶点为%c\n",g.vertices.list[i],g.vertices.list[path[i]]);*/
 
     return 0;
 }
