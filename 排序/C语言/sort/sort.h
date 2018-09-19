@@ -8,9 +8,10 @@ typedef struct
 }DataType;
 
 void insertSort(DataType a[], int n);
+void shellSort(DataType a[], int n, int d[], int numOfD);
 
 
-//插入排序
+//直接排序
 void insertSort(DataType a[], int n)
 {
     int i,j;
@@ -31,6 +32,38 @@ void insertSort(DataType a[], int n)
         }
     }
 }
+
+//希尔排序
+void shellSort(DataType a[], int n, int d[], int numOfD)
+{
+    int i,j,k,m;
+    int decade;
+    DataType temp;
+
+    for(i=0; i<numOfD;i++)
+    {
+        decade = d[i]; //分组间隔
+        for(j=0;j<decade;j++)  //共decade个小组
+        {
+            //组内是直接排序
+            for(k=j; k<n-decade+j; k=k+decade)
+            {
+                for(m=k+decade; m>j; m=m-decade)
+                {
+                    if(a[m].key < a[m-decade].key)
+                    {
+                        temp = a[m-decade];
+                        a[m-decade] = a[m];
+                        a[m] = temp;
+                    }
+                    else
+                        break;
+                }
+            }
+        }
+    }
+}
+
 
 #endif // __SORT_H__
 
