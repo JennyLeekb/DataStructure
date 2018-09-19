@@ -9,6 +9,7 @@ typedef struct
 
 void insertSort(DataType a[], int n);
 void shellSort(DataType a[], int n, int d[], int numOfD);
+void selectSort(DataType a[],int n);
 
 
 //直接排序
@@ -62,6 +63,37 @@ void shellSort(DataType a[], int n, int d[], int numOfD)
             }
         }
     }
+}
+
+
+//直接选择排序
+void selectSort(DataType a[],int n)
+{
+    DataType minData,temp;
+    int i,j,index;
+
+    for(i=0;i<n-1;i++)
+    {
+        minData = a[i];
+        index = i;
+        for(j=i+1;j<n;j++)
+        {
+            if(a[j].key < minData.key)
+            {
+                minData = a[j];
+                index = j;
+            }
+        }
+
+        if(index != i)  //当前元素就是最小元素的时候不需要交换
+        {
+            temp = a[i];
+            a[i] = minData;
+            a[index] = temp;
+        }
+
+    }
+
 }
 
 
