@@ -177,6 +177,43 @@ void bubleSort(DataType a[], int n)
     }
 }
 
+//快速排序
+void quickSort(DataType a[], int low, int high)
+{
+    int i = low, j = high;
+    DataType temp = a[low];
+
+    while(i<j)
+    {
+        //确保标准右边的值大于标准
+        while(i<j && temp.key <= a[j].key) j--;
+
+        if(i<j)  //当标准右边的值小于标准时，将不大于标准的值移动到标准左端
+        {
+            a[i] = a[j] ; //此时a[j].key < temp.key
+            i++;
+        }
+
+        //确保标准左边的值小于标准
+        while(i<j && temp.key > a[i].key) i++;
+
+        if(i<j) //当标准左边的值大于标准时，将大于标准的值移动到标准的右边
+        {
+            a[j] = a[i];
+            j--;
+        }
+
+        a[i] = temp; //将标准移动到恰当的位置（此时标准左边的值都小于标准，标准右边的值都大于标准）
+
+        if(low < i)
+            quickSort(a,low,i-1); //分别调整左边和右边
+        if(i < high)
+            quickSort(a,j+1,high);
+
+    }
+
+}
+
 
 
 

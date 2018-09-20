@@ -44,12 +44,21 @@ int main()
     for(i=0;i<n;i++)
         printf("%d  ",test[i].key);*/
 
-    DataType test[8] = {{38},{5},{19},{26},{49},{97},{1},{66} };
+    /*DataType test[8] = {{38},{5},{19},{26},{49},{97},{1},{66} };
     int n = 8,i;
 
     bubleSort(test,n);
 
     printf("冒泡排序的结果：\n");
+    for(i=0;i<n;i++)
+        printf("%d  ",test[i].key);*/
+
+    DataType test[8] = {{60},{55},{48},{37},{10},{90},{84},{36} };
+    int n=8,i;
+
+    quickSort(test,0,7);
+
+    printf("快速排序的结果：\n");
     for(i=0;i<n;i++)
         printf("%d  ",test[i].key);
 
