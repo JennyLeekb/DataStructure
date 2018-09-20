@@ -11,6 +11,7 @@ void insertSort(DataType a[], int n);
 void shellSort(DataType a[], int n, int d[], int numOfD);
 void selectSort(DataType a[],int n);
 void heapSort(DataType a[], int n);
+void bubleSort(DataType a[], int n);
 
 
 //直接排序
@@ -154,6 +155,28 @@ void heapSort(DataType a[], int n)
         createHeap(a,i,0); //重新调整根结点，使之满足最大堆
     }
 }
+
+
+//冒泡排序
+void bubleSort(DataType a[], int n)
+{
+    int i,j;
+    DataType temp;
+
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n-i-1;j++)
+        {
+            if(a[j].key > a[j+1].key)
+            {
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+            }
+        }
+    }
+}
+
 
 
 
