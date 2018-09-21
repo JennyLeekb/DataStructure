@@ -12,6 +12,9 @@ void shellSort(DataType a[], int n, int d[], int numOfD);
 void selectSort(DataType a[],int n);
 void heapSort(DataType a[], int n);
 void bubleSort(DataType a[], int n);
+void quickSort(DataType a[], int low, int high);
+void mergeArr(DataType a[], int left, int mid, int right, DataType temp[]);
+void mergeSort(DataType a[], int left, int right, DataType temp[]);
 
 
 //直接排序
@@ -214,6 +217,52 @@ void quickSort(DataType a[], int low, int high)
 
 }
 
+
+//归并排序
+void mergeSort(DataType a[], int left, int right, DataType temp[])
+{
+    int mid = (left + right)/2 ;
+    if(left < right)
+    {
+        mergeSort(a,left,mid,temp);  //先归并排序左边的
+        mergeSort(a,mid+1,right,temp); //右边的
+        mergeArr(a,left,mid,right,temp); //合并排序好的分组
+    }
+
+}
+
+
+//合并分组
+void mergeArr(DataType a[], int left, int mid, int right, DataType temp[])
+{
+    int i = left, j= mid+1;
+    int k = 0;
+    while(i<=mid && j<=right)
+    {
+        if(a[i].key <= a[j].key)
+            temp[k++] = a[i++];
+        else
+            temp[k++] = a[j++];
+    }
+
+    while(i <= mid)
+    {
+        temp[k++] = a[i++];
+    }
+
+    while(j <= right)
+    {
+        temp[k++] = a[j++];
+    }
+
+
+    //将temp中的数组全部拷贝到原数组中
+    k = 0;
+    while(left <= right)
+    {
+        a[left++] = temp[k++];
+    }
+}
 
 
 
