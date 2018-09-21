@@ -7,6 +7,8 @@ typedef struct
     KeyType key;
 }DataType;
 
+#include "seqcqueue.h"
+
 void insertSort(DataType a[], int n);
 void shellSort(DataType a[], int n, int d[], int numOfD);
 void selectSort(DataType a[],int n);
@@ -15,6 +17,7 @@ void bubleSort(DataType a[], int n);
 void quickSort(DataType a[], int low, int high);
 void mergeArr(DataType a[], int left, int mid, int right, DataType temp[]);
 void mergeSort(DataType a[], int left, int right, DataType temp[]);
+void radixSort(DataType a[], int n ,int m, int d);
 
 
 //直接排序
@@ -265,6 +268,38 @@ void mergeArr(DataType a[], int left, int mid, int right, DataType temp[])
 }
 
 
+//基数排序
+//n为元素个数 m为位数（例如124 的 m=3） d为进制数，十进制d=10
+void radixSort(DataType a[], int n ,int m, int d)
+{
+    int i,j,k,p;
+    int power = 1;
+    SeqCQueue que[d];
+
+    for(i=0;i<d;i++)
+        initQueue(&que[i]);
+
+    for(i=0; i<m; i++)
+    {
+        if(i==0) power = 1;
+        else
+            power = d*power;
+
+        for(j=0; j<n; j++)  //入队列
+        {
+            k = ( (a[j].key/power) - d*(a[j].key/(power*d)) ); //m位上数
+            appendQueue(&que[k],a[j]);
+        }
+
+        p = 0;
+        for(j=0;j<d;j++)  //收集
+        {
+            while(queueNotEmpty(&que[j]))
+                deleteQueue(&que[j], &a[p++]);
+        }
+    }
+
+}
 
 
 #endif // __SORT_H__

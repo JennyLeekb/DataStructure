@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MaxQueueSize 100
+
 #include "sort.h"
+
+
 
 int main()
 {
@@ -61,7 +65,8 @@ int main()
     printf("快速排序的结果：\n");
     for(i=0;i<n;i++)
         printf("%d  ",test[i].key);*/
-    DataType test[8] = {{60},{55},{48},{37},{10},{90},{84},{36} };
+
+    /*DataType test[8] = {{60},{55},{48},{37},{10},{90},{84},{36} };
     int n=8,i;
     DataType temp[8];
 
@@ -69,7 +74,17 @@ int main()
 
     printf("归并排序的结果：\n");
     for(i=0;i<n;i++)
+        printf("%d  ",test[i].key);*/
+
+    DataType test[10] = {{710},{342},{45},{686},{6},{841},{429},{134},{68},{246} };
+    int n=10,i;
+
+    radixSort(test,n,3,10);
+
+    printf("基数排序的结果：\n");
+    for(i=0;i<n;i++)
         printf("%d  ",test[i].key);
+
 
     return 0;
 }
